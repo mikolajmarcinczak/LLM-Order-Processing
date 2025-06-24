@@ -1,0 +1,59 @@
+# .NET build artifacts
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+*.dbmdl 
+
+# Rider
+.idea/
+
+# Mac
+.DS_Store
+
+# Logs
+*.log
+
+# EF Core tools
+**/Migrations/*Designer.cs
+**/Migrations/*Snapshot.cs
+
+# Publish output
+/app/
+/app.publish/
+
+# Blazor/ASP.NET static assets
+OrderProcessor.UI/wwwroot/css/bootstrap/
+OrderProcessor.UI/wwwroot/css/open-iconic/
+OrderProcessor.UI/wwwroot/favicon.ico
+
+# Ignore generated files
+OrderProcessor.UI/obj/
+OrderProcessor.UI/bin/
+OrderProcessor.Application/obj/
+OrderProcessor.Application/bin/
+OrderProcessor.Domain/obj/
+OrderProcessor.Domain/bin/
+OrderProcessor.Infrastructure/obj/
+OrderProcessor.Infrastructure/bin/
+
+# Ignore local EML test files
+eml_files/
+
+# Ignore secrets
+.env
+appsettings.Development.json
+appsettings.Local.json
+
+# Ignore Ollama model cache
+ollama_data/
+
+# Ignore MySQL data
+mysql_data/ 

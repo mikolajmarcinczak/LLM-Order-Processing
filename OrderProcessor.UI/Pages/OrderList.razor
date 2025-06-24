@@ -1,0 +1,141 @@
+@page "/orders"
+@using OrderProcessor.Application.Services
+@using OrderProcessor.Domain.Entities
+@inject OrderProcessingService OrderProcessingService
+
+<h3>Order List</h3>
+
+<button class="btn btn-primary mb-3" @onclick="ProcessOrders">Process New Emails from IMAP</button>
+<button class="btn btn-info mb-3 ml-2" @onclick="ProcessLocalOrders">Process Local EML Files</button>
+
+@if (processing)
+{
+    <p><em>Processing new orders...</em></p>
+}
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger" role="alert">@errorMessage</div>
+}
+
+@if (orders == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!orders.Any())
+{
+    <p><em>No orders found.</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Received Date</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                @if (order.OrderItems != null && order.OrderItems.Any())
+                {
+                    @foreach (var item in order.OrderItems)
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            <td>@order.ReceivedDate.ToShortDateString()</td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price.ToString("C")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.ReceivedDate.ToShortDateString()</td>
+                        <td colspan="3">No items for this order</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+
+
+
+
+
+
+  private IEnumerable<Order> orders = new List<Order>();
+  private string errorMessage = string.Empty;
+  private bool processing;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await LoadOrders();
+  }
+
+  private async Task LoadOrders()
+  {
+    try
+    {
+      orders = await OrderProcessingService.GetAllOrdersAsync();
+    }
+    catch (Exception ex)
+    {
+      errorMessage = $"Error loading orders: {ex.Message}";
+    }
+  }
+
+  private async Task ProcessOrders()
+  {
+    processing = true;
+    errorMessage = null;
+
+    try
+    {
+      await OrderProcessingService.ProcessNewOrdersAsync();
+      await LoadOrders();
+    }
+    catch (Exception ex)
+    {
+      errorMessage = $"Error processing orders: {ex.Message}";
+    }
+    finally
+    {
+      processing = false;
+    }
+  }
+
+  private async Task ProcessLocalOrders()
+  {
+    processing = true;
+    errorMessage = null;
+    try
+    {
+      var emlFiles = new List<string>
+            {
+                "./eml_files/Zamowienie1.eml",
+                "./eml_files/Zamowienie2.eml"
+            };
+      await OrderProcessingService.ProcessLocalEmlFilesAsync(emlFiles);
+      await LoadOrders();
+    }
+    catch (Exception ex)
+    {
+      errorMessage = $"Error processing local EML files: {ex.Message}";
+    }
+    finally
+    {
+      processing = false;
+    }
+  }
+}
