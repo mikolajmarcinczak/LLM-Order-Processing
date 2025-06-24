@@ -1,0 +1,27 @@
+From: customer@example.com
+To: orders@company.com
+Subject: Order #12345
+Date: Mon, 24 Jun 2025 10:00:00 +0200
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+Dear Sales Team,
+
+I would like to place the following order:
+
+Product: Laptop Dell XPS 13
+Quantity: 2
+Price: $1,299.00 each
+
+Product: Wireless Mouse Logitech MX Master
+Quantity: 3
+Price: $79.99 each
+
+Product: USB-C Cable
+Quantity: 5
+Price: $15.50 each
+
+Please process this order as soon as possible.
+
+Best regards,
+John Doe 

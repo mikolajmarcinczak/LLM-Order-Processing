@@ -1,0 +1,25 @@
+From: customer2@example.com
+To: orders@company.com
+Subject: Order #12346
+Date: Mon, 24 Jun 2025 11:30:00 +0200
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+Hello,
+
+Please process this order:
+
+Product: Monitor Samsung 27" 4K
+Quantity: 1
+Price: $399.99
+
+Product: Mechanical Keyboard Cherry MX
+Quantity: 2
+Price: $149.99 each
+
+Product: Webcam Logitech C920
+Quantity: 1
+Price: $89.99
+
+Thank you,
+Jane Smith 
