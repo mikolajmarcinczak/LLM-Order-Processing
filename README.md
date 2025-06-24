@@ -1,2 +1,2 @@
-docker compose build --no-cache\n
+docker compose build --no-cache \
 docker compose up
